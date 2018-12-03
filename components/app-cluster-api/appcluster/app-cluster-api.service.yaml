@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-cluster-api
+  labels:
+    cluster: application
+    component: app-cluster-api
+  namespace: nalej
+spec:
+  selector:
+    cluster: application
+    component: app-cluster-api
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    name: grpc
+    port: 8281
+    targetPort: 8281
