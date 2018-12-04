@@ -1,6 +1,6 @@
 import org.nalej.SlackHelper
 def slackHelper = new SlackHelper()
-def packageName = "conductor"
+def packageName = "app-cluster-api"
 def packagePath = "src/github.com/nalej/${packageName}"
 
 pipeline {
