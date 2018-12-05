@@ -137,20 +137,21 @@ create-image:
     done
 
 # Publish the image
-publish: image publish-image
+.PHONY: publish az-login az-logout publish-image
+publish: image az-login publish-image az-logout
 
-publish-image:
-	$(info >>> Logging in Azure and Azure Container Registry ...)
+az-login:
+	@echo ">>> Logging in Azure and Azure Container Registry ..."
 	az login
 	az acr login --name $(AZURE_CR)
 
-	$(info >>> Publish images into Azure Container Registry ...)
+az-logout:
+	az logout
+
+publish-image:
+	@echo ">>> Publishing images into Azure Container Registry ..."
 	for app in $(APPS); do \
-	    if [ -f $(TARGET)/images/"$$app"/image.tar ]; then \
-	        docker push $(DOCKER_REGISTRY)/$(DOCKER_REPO)/"$$app":$(VERSION) ; \
-	    else \
-	        echo $$app has no image to be pushed ; \
-	    fi ; \
-   	    echo  Published image of app $$app ; \
-    done ; \
-    az logout ; \
+		if [ -f components/"$$app"/Dockerfile ]; then \
+			docker push $(DOCKER_REGISTRY)/$(DOCKER_REPO)/"$$app":$(VERSION) ; \
+		fi ; \
+done
