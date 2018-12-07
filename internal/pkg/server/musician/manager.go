@@ -6,6 +6,7 @@ package musician
 
 import (
     "github.com/nalej/grpc-conductor-go"
+    "github.com/rs/zerolog/log"
     "context"
 )
 
@@ -20,5 +21,6 @@ func NewManager(musicianClient grpc_conductor_go.MusicianClient) Manager {
 }
 
 func (m *Manager) Score(request *grpc_conductor_go.ClusterScoreRequest) (*grpc_conductor_go.ClusterScoreResponse, error) {
+    log.Debug().Interface("request", request).Msg("forward score request")
     return m.MusicianClient.Score(context.Background(), request)
 }
