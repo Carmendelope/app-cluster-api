@@ -28,16 +28,16 @@
 
 [[constraint]]
     name="github.com/nalej/grpc-deployment-manager-go"
-    version="v0.0.37"
+    version="v0.0.46"
 
 [[constraint]]
     name="github.com/nalej/grpc-conductor-go"
-    version="v0.0.58"
+    version="v0.0.79"
 
 [[constraint]]
     name="github.com/nalej/grpc-common-go"
-    version="v0.0.17"
+    version="v0.0.30"
 
 [[constraint]]
     name="github.com/nalej/grpc-app-cluster-api-go"
-    version="v0.0.1"
+    version="v0.0.11"
