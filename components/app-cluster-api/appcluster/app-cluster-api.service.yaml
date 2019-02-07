@@ -5,7 +5,7 @@ metadata:
   labels:
     cluster: application
     component: app-cluster-api
-  namespace: nalej
+  namespace: __NPH_NAMESPACE
 spec:
   selector:
     cluster: application
