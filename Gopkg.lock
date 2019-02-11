@@ -33,12 +33,12 @@
   version = "v2.0.0"
 
 [[projects]]
-  digest = "1:0a7bd8b950ba48691273b778649a21869078ca5616c775db5c5962f6ef1496e0"
+  digest = "1:c6704921ad435658f76313533b25aa3072db14fea9155d038b3c02d16cb3b46f"
   name = "github.com/nalej/grpc-app-cluster-api-go"
   packages = ["."]
   pruneopts = ""
-  revision = "5520c887b6e5a98353c3112e516c0dd718780d19"
-  version = "v0.0.11"
+  revision = "f831d0fb93835711d40842262bd3828fa4f963d8"
+  version = "v0.0.12"
 
 [[projects]]
   digest = "1:cb2b3882768b29fa2e8eff17f153d8c02f40d8c9039f3321bb16a9de02b3c3e6"
