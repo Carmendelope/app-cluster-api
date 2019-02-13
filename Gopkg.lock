@@ -239,6 +239,7 @@
     "github.com/nalej/grpc-common-go",
     "github.com/nalej/grpc-conductor-go",
     "github.com/nalej/grpc-deployment-manager-go",
+    "github.com/nalej/grpc-unified-logging-go",
     "github.com/nalej/grpc-utils/pkg/tools",
     "github.com/rs/zerolog",
     "github.com/rs/zerolog/log",
