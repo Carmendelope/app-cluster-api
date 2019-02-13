@@ -17,6 +17,8 @@ type Config struct {
     DeploymentManagerAddress string
     // Musician address
     MusicianAddress string
+    // Unified Logging Slave address
+    UnifiedLoggingAddress string
 }
 
 
@@ -34,6 +36,10 @@ func (conf *Config) Validate() derrors.Error {
         return derrors.NewInvalidArgumentError("deploymentManagerAddress invalid")
     }
 
+    if conf.UnifiedLoggingAddress == "" {
+        return derrors.NewInvalidArgumentError("unifiedLoggingAddress invalid")
+    }
+
     return nil
 }
 
@@ -42,5 +48,6 @@ func (conf *Config) Print() {
     log.Info().Int("port", conf.Port).Msg("gRPC port")
     log.Info().Str("URL", conf.DeploymentManagerAddress).Msg("Deployment Manager Service")
     log.Info().Str("URL", conf.MusicianAddress).Msg("Musician Service")
+    log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
 }
 

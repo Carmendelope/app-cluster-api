@@ -8,12 +8,14 @@ import (
     "github.com/nalej/grpc-utils/pkg/tools"
     "github.com/nalej/grpc-deployment-manager-go"
     "github.com/nalej/grpc-conductor-go"
+    "github.com/nalej/grpc-unified-logging-go"
     "github.com/nalej/derrors"
     "google.golang.org/grpc"
     "net"
     "fmt"
     "github.com/nalej/app-cluster-api/internal/pkg/server/deployment-manager"
     "github.com/nalej/app-cluster-api/internal/pkg/server/musician"
+    "github.com/nalej/app-cluster-api/internal/pkg/server/unified-logging"
     "github.com/rs/zerolog/log"
     "github.com/nalej/grpc-app-cluster-api-go"
     "google.golang.org/grpc/reflection"
@@ -36,6 +38,7 @@ func NewService(conf Config) *Service {
 type Clients struct {
     DMClient grpc_deployment_manager_go.DeploymentManagerClient
     MusicianClient grpc_conductor_go.MusicianClient
+    UnifiedLoggingClient grpc_unified_logging_go.SlaveClient
 }
 
 func (s *Service) GetClients() (*Clients, derrors.Error) {
@@ -49,10 +52,20 @@ func (s *Service) GetClients() (*Clients, derrors.Error) {
         return nil, derrors.AsError(err, "cannot create connection with the musician")
     }
 
+    unifiedLoggingConn, err := grpc.Dial(s.Configuration.UnifiedLoggingAddress, grpc.WithInsecure())
+    if err != nil {
+        return nil, derrors.AsError(err, "cannot create connection with the unified logging slave")
+    }
+
     dmClient := grpc_deployment_manager_go.NewDeploymentManagerClient(dmConn)
     musicianClient := grpc_conductor_go.NewMusicianClient(musicianConn)
+    unifiedLoggingClient := grpc_unified_logging_go.NewSlaveClient(unifiedLoggingConn)
 
-    return &Clients{DMClient: dmClient, MusicianClient: musicianClient}, nil
+    return &Clients{
+        DMClient: dmClient,
+        MusicianClient: musicianClient,
+        UnifiedLoggingClient: unifiedLoggingClient,
+    }, nil
 }
 
 // Run the service, launch the service handler
@@ -79,11 +92,15 @@ func (s *Service) Run() error {
     musicianManager := musician.NewManager(clients.MusicianClient)
     musicianHandler := musician.NewHandler(musicianManager)
 
+    ulManager := unified_logging.NewManager(clients.UnifiedLoggingClient)
+    ulHandler := unified_logging.NewHandler(ulManager)
+
     // Create handlers
     grpcServer := grpc.NewServer()
 
     grpc_app_cluster_api_go.RegisterDeploymentManagerServer(grpcServer, dmHandler)
     grpc_app_cluster_api_go.RegisterMusicianServer(grpcServer, musicianHandler)
+    grpc_app_cluster_api_go.RegisterUnifiedLoggingServer(grpcServer, ulHandler)
 
     reflection.Register(grpcServer)
     log.Info().Int("port", s.Configuration.Port).Msg("Launching gRPC server")
