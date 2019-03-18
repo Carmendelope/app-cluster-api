@@ -33,12 +33,12 @@
   version = "v2.0.0"
 
 [[projects]]
-  digest = "1:c5f22458eb54feb47d45f1cfab7501e26195508e832df74646c2f48717d6072a"
+  digest = "1:8c9a6a0df21ab83fdcc5f34a2b32ff864b01c6c4b402ceb1fdb73b9f216f13e8"
   name = "github.com/nalej/grpc-app-cluster-api-go"
   packages = ["."]
   pruneopts = ""
-  revision = "2cbd26303129b258a903566caa9402b1fb1ed536"
-  version = "v0.0.13"
+  revision = "33ed7f25cfb4b8afefea1e7bac149e8c8e15e800"
+  version = "v0.0.14"
 
 [[projects]]
   digest = "1:78be745c0683ba966e8aea204315337c74c8e719e34952c53c66d5d148306393"
@@ -79,6 +79,14 @@
   pruneopts = ""
   revision = "ea9783c67dc5bf7f6429935c0fdc59eee3f361e1"
   version = "v0.0.32"
+
+[[projects]]
+  digest = "1:563634bd58d7111660d55e03735d16f13176027243c5e0d3f2c7f4e2daf2f74b"
+  name = "github.com/nalej/grpc-infrastructure-monitor-go"
+  packages = ["."]
+  pruneopts = ""
+  revision = "17cd2b9c7c344556cc15b657a74e84ff70da5eba"
+  version = "v0.0.1"
 
 [[projects]]
   digest = "1:9921e275160e1559963d6452a918027db3563746fd03f63369ab104c0fbf16bf"
@@ -239,6 +247,7 @@
     "github.com/nalej/grpc-common-go",
     "github.com/nalej/grpc-conductor-go",
     "github.com/nalej/grpc-deployment-manager-go",
+    "github.com/nalej/grpc-infrastructure-monitor-go",
     "github.com/nalej/grpc-unified-logging-go",
     "github.com/nalej/grpc-utils/pkg/tools",
     "github.com/rs/zerolog",
