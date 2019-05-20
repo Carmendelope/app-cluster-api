@@ -2,10 +2,6 @@
 #  Copyright 2018 Nalej
 # 
 
-# Name of the target applications to be built
-APPS=app-cluster-api
+include scripts/Makefile.common
 
-# Use global Makefile for common targets
-export
-%:
-	$(MAKE) -f Makefile.golang $@
+.DEFAULT_GOAL := all
