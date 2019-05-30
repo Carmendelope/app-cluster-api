@@ -30,3 +30,8 @@ func (m *Manager) Undeploy(request *grpc_deployment_manager_go.UndeployRequest) 
     log.Debug().Interface("request", request).Msg("forward undeploy request")
     return m.DMClient.Undeploy(context.Background(), request)
 }
+
+func (m *Manager) UndeployFragment(request *grpc_deployment_manager_go.UndeployFragmentRequest) (*grpc_common_go.Success, error) {
+    log.Debug().Interface("request", request).Msg("forward undeploy fragment request")
+    return m.DMClient.UndeployFragment(context.Background(), request)
+}
