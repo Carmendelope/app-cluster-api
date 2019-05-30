@@ -30,3 +30,8 @@ func (h* Handler) Undeploy (context context.Context, request *grpc_deployment_ma
     log.Debug().Interface("request", request).Msg("undeploy")
     return h.Manager.Undeploy(request)
 }
+
+func (h* Handler) UndeployFragment (context context.Context, request *grpc_deployment_manager_go.UndeployFragmentRequest) (*grpc_common_go.Success, error) {
+    log.Debug().Interface("request", request).Msg("undeploy fragment")
+    return h.Manager.UndeployFragment(request)
+}
