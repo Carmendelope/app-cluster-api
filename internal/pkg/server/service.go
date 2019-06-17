@@ -39,6 +39,7 @@ func NewService(conf Config) *Service {
 
 type Clients struct {
     DMClient grpc_deployment_manager_go.DeploymentManagerClient
+    DMNetworkClient grpc_deployment_manager_go.DeploymentManagerNetworkClient
     MusicianClient grpc_conductor_go.MusicianClient
     UnifiedLoggingClient grpc_unified_logging_go.SlaveClient
     InfrastructureMonitorClient grpc_infrastructure_monitor_go.SlaveClient
@@ -66,12 +67,14 @@ func (s *Service) GetClients() (*Clients, derrors.Error) {
     }
 
     dmClient := grpc_deployment_manager_go.NewDeploymentManagerClient(dmConn)
+    dmNetworkClient := grpc_deployment_manager_go.NewDeploymentManagerNetworkClient(dmConn)
     musicianClient := grpc_conductor_go.NewMusicianClient(musicianConn)
     unifiedLoggingClient := grpc_unified_logging_go.NewSlaveClient(unifiedLoggingConn)
     infrastructureMonitorClient := grpc_infrastructure_monitor_go.NewSlaveClient(infrastructureMonitorConn)
 
     return &Clients{
         DMClient: dmClient,
+        DMNetworkClient: dmNetworkClient,
         MusicianClient: musicianClient,
         UnifiedLoggingClient: unifiedLoggingClient,
         InfrastructureMonitorClient: infrastructureMonitorClient,
@@ -96,7 +99,7 @@ func (s *Service) Run() error {
         log.Fatal().Errs("failed to listen: %v", []error{err})
     }
 
-    dmManager := deployment_manager.NewManager(clients.DMClient)
+    dmManager := deployment_manager.NewManager(clients.DMClient, clients.DMNetworkClient)
     dmHandler := deployment_manager.NewHandler(dmManager)
 
     musicianManager := musician.NewManager(clients.MusicianClient)
