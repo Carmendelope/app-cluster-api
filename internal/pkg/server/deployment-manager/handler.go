@@ -35,3 +35,9 @@ func (h* Handler) UndeployFragment (context context.Context, request *grpc_deplo
     log.Debug().Interface("request", request).Msg("undeploy fragment")
     return h.Manager.UndeployFragment(request)
 }
+
+
+func (h* Handler) SetServiceRoute(context context.Context, request *grpc_deployment_manager_go.ServiceRoute) (*grpc_common_go.Success, error) {
+    log.Debug().Interface("request", request).Msg("set service route")
+    return h.Manager.SetServiceRoute(request)
+}
