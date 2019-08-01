@@ -19,8 +19,8 @@ type Config struct {
     MusicianAddress string
     // Unified Logging Slave address
     UnifiedLoggingAddress string
-    // Unified Logging Slave address
-    InfrastructureMonitorAddress string
+    // Metrics Collector address
+    MetricsCollectorAddress string
 }
 
 
@@ -42,8 +42,8 @@ func (conf *Config) Validate() derrors.Error {
         return derrors.NewInvalidArgumentError("unifiedLoggingAddress invalid")
     }
 
-    if conf.InfrastructureMonitorAddress == "" {
-        return derrors.NewInvalidArgumentError("infrastructureMonitorAddress invalid")
+    if conf.MetricsCollectorAddress == "" {
+        return derrors.NewInvalidArgumentError("metricsCollectorAddress invalid")
     }
 
     return nil
@@ -55,6 +55,6 @@ func (conf *Config) Print() {
     log.Info().Str("URL", conf.DeploymentManagerAddress).Msg("Deployment Manager Service")
     log.Info().Str("URL", conf.MusicianAddress).Msg("Musician Service")
     log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
-    log.Info().Str("URL", conf.InfrastructureMonitorAddress).Msg("Infrastructure Monitor Slave Service")
+    log.Info().Str("URL", conf.MetricsCollectorAddress).Msg("Metrics Collector Service")
 }
 

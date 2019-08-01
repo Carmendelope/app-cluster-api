@@ -29,7 +29,7 @@ func init() {
     runCmd.Flags().StringVar(&config.DeploymentManagerAddress, "deploymentManagerAddress", "deployment-manager.nalej:5200", "deployment manager service address")
     runCmd.Flags().StringVar(&config.MusicianAddress, "musicianAddress", "musician.nalej:5100", "musician service address")
     runCmd.Flags().StringVar(&config.UnifiedLoggingAddress, "unifiedLoggingAddress", "unified-logging-slave.nalej:8322", "unified logging slave address")
-    runCmd.Flags().StringVar(&config.InfrastructureMonitorAddress, "infrastructureMonitorAddress", "infrastructure-monitor-slave.nalej:8422", "infrastructure monitor slave address")
+    runCmd.Flags().StringVar(&config.MetricsCollectorAddress, "metricsCollectorAddress", "metrics-collector.nalej:8422", "metrics collector address")
 
     rootCmd.AddCommand(runCmd)
 }

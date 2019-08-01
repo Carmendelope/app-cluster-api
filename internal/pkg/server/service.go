@@ -8,7 +8,7 @@ import (
     "github.com/nalej/grpc-utils/pkg/tools"
     "github.com/nalej/grpc-conductor-go"
     "github.com/nalej/grpc-deployment-manager-go"
-    "github.com/nalej/grpc-infrastructure-monitor-go"
+    "github.com/nalej/grpc-monitoring-go"
     "github.com/nalej/grpc-unified-logging-go"
     "github.com/nalej/derrors"
     "google.golang.org/grpc"
@@ -17,7 +17,7 @@ import (
     "github.com/nalej/app-cluster-api/internal/pkg/server/deployment-manager"
     "github.com/nalej/app-cluster-api/internal/pkg/server/musician"
     "github.com/nalej/app-cluster-api/internal/pkg/server/unified-logging"
-    "github.com/nalej/app-cluster-api/internal/pkg/server/infrastructure-monitor"
+    "github.com/nalej/app-cluster-api/internal/pkg/server/metrics-collector"
     "github.com/rs/zerolog/log"
     "github.com/nalej/grpc-app-cluster-api-go"
     "google.golang.org/grpc/reflection"
@@ -42,7 +42,7 @@ type Clients struct {
     DMNetworkClient grpc_deployment_manager_go.DeploymentManagerNetworkClient
     MusicianClient grpc_conductor_go.MusicianClient
     UnifiedLoggingClient grpc_unified_logging_go.SlaveClient
-    InfrastructureMonitorClient grpc_infrastructure_monitor_go.SlaveClient
+    MetricsCollectorClient grpc_monitoring_go.MetricsCollectorClient
 }
 
 func (s *Service) GetClients() (*Clients, derrors.Error) {
@@ -61,23 +61,23 @@ func (s *Service) GetClients() (*Clients, derrors.Error) {
         return nil, derrors.AsError(err, "cannot create connection with the unified logging slave")
     }
 
-    infrastructureMonitorConn, err := grpc.Dial(s.Configuration.InfrastructureMonitorAddress, grpc.WithInsecure())
+    metricsCollectorConn, err := grpc.Dial(s.Configuration.MetricsCollectorAddress, grpc.WithInsecure())
     if err != nil {
-        return nil, derrors.AsError(err, "cannot create connection with the infrastructure monitor slave")
+        return nil, derrors.AsError(err, "cannot create connection with the metrics collector")
     }
 
     dmClient := grpc_deployment_manager_go.NewDeploymentManagerClient(dmConn)
     dmNetworkClient := grpc_deployment_manager_go.NewDeploymentManagerNetworkClient(dmConn)
     musicianClient := grpc_conductor_go.NewMusicianClient(musicianConn)
     unifiedLoggingClient := grpc_unified_logging_go.NewSlaveClient(unifiedLoggingConn)
-    infrastructureMonitorClient := grpc_infrastructure_monitor_go.NewSlaveClient(infrastructureMonitorConn)
+    metricsCollectorClient := grpc_monitoring_go.NewMetricsCollectorClient(metricsCollectorConn)
 
     return &Clients{
         DMClient: dmClient,
         DMNetworkClient: dmNetworkClient,
         MusicianClient: musicianClient,
         UnifiedLoggingClient: unifiedLoggingClient,
-        InfrastructureMonitorClient: infrastructureMonitorClient,
+        MetricsCollectorClient: metricsCollectorClient,
     }, nil
 }
 
@@ -108,15 +108,15 @@ func (s *Service) Run() error {
     ulManager := unified_logging.NewManager(clients.UnifiedLoggingClient)
     ulHandler := unified_logging.NewHandler(ulManager)
 
-    imManager := infrastructure_monitor.NewManager(clients.InfrastructureMonitorClient)
-    imHandler := infrastructure_monitor.NewHandler(imManager)
+    mcManager := metrics_collector.NewManager(clients.MetricsCollectorClient)
+    mcHandler := metrics_collector.NewHandler(mcManager)
     // Create handlers
     grpcServer := grpc.NewServer()
 
     grpc_app_cluster_api_go.RegisterDeploymentManagerServer(grpcServer, dmHandler)
     grpc_app_cluster_api_go.RegisterMusicianServer(grpcServer, musicianHandler)
     grpc_app_cluster_api_go.RegisterUnifiedLoggingServer(grpcServer, ulHandler)
-    grpc_app_cluster_api_go.RegisterInfrastructureMonitorServer(grpcServer, imHandler)
+    grpc_app_cluster_api_go.RegisterMetricsCollectorServer(grpcServer, mcHandler)
 
     reflection.Register(grpcServer)
     log.Info().Int("port", s.Configuration.Port).Msg("Launching gRPC server")
