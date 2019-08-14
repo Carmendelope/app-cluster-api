@@ -2,12 +2,12 @@
  * Copyright (C) 2019 Nalej - All Rights Reserved
  */
 
-package infrastructure_monitor
+package metrics_collector
 
 import (
     "context"
     "github.com/rs/zerolog/log"
-    grpc "github.com/nalej/grpc-infrastructure-monitor-go"
+    grpc "github.com/nalej/grpc-monitoring-go"
 )
 
 type Handler struct {
