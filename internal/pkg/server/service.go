@@ -5,35 +5,32 @@
 package server
 
 import (
-    "github.com/nalej/grpc-utils/pkg/tools"
+	"fmt"
+    "github.com/nalej/app-cluster-api/internal/pkg/server/deployment-manager"
+    "github.com/nalej/app-cluster-api/internal/pkg/server/metrics-collector"
+    "github.com/nalej/app-cluster-api/internal/pkg/server/musician"
+    "github.com/nalej/app-cluster-api/internal/pkg/server/unified-logging"
+    "github.com/nalej/derrors"
+    "github.com/nalej/grpc-app-cluster-api-go"
     "github.com/nalej/grpc-conductor-go"
     "github.com/nalej/grpc-deployment-manager-go"
     "github.com/nalej/grpc-monitoring-go"
     "github.com/nalej/grpc-unified-logging-go"
-    "github.com/nalej/derrors"
-    "google.golang.org/grpc"
-    "net"
-    "fmt"
-    "github.com/nalej/app-cluster-api/internal/pkg/server/deployment-manager"
-    "github.com/nalej/app-cluster-api/internal/pkg/server/musician"
-    "github.com/nalej/app-cluster-api/internal/pkg/server/unified-logging"
-    "github.com/nalej/app-cluster-api/internal/pkg/server/metrics-collector"
     "github.com/rs/zerolog/log"
-    "github.com/nalej/grpc-app-cluster-api-go"
+    "google.golang.org/grpc"
     "google.golang.org/grpc/reflection"
+    "net"
 )
 
 // Service structure with the configuration and the gRPC server.
 type Service struct {
     Configuration Config
-    Server        *tools.GenericGRPCServer
 }
 
 // Clients structure with the gRPC clients for remote services.
 func NewService(conf Config) *Service {
     return &Service {
         conf,
-        tools.NewGenericGRPCServer(uint32(conf.Port)),
     }
 }
 
