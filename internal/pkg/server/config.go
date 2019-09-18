@@ -21,6 +21,8 @@ type Config struct {
     UnifiedLoggingAddress string
     // Metrics Collector address
     MetricsCollectorAddress string
+    // Cluster watcher address
+    ClusterWatcherAddress string
 }
 
 
@@ -46,6 +48,10 @@ func (conf *Config) Validate() derrors.Error {
         return derrors.NewInvalidArgumentError("metricsCollectorAddress invalid")
     }
 
+    if conf.ClusterWatcherAddress == "" {
+        return derrors.NewInvalidArgumentError("clusterWatcherAddress invalid")
+    }
+
     return nil
 }
 
@@ -56,5 +62,6 @@ func (conf *Config) Print() {
     log.Info().Str("URL", conf.MusicianAddress).Msg("Musician Service")
     log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
     log.Info().Str("URL", conf.MetricsCollectorAddress).Msg("Metrics Collector Service")
+    log.Info().Str("URL", conf.ClusterWatcherAddress).Msg("Cluster watcher service")
 }
 
