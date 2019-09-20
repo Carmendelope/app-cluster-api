@@ -33,12 +33,12 @@
   version = "v2.0.0"
 
 [[projects]]
-  digest = "1:2906626216a7128dcbc73cc28682afbd34eafa448207f48493808432d30ce0fb"
+  digest = "1:064b4bca0f98d334f84c37c94eee68190353007a29da1abbce2fb86f67c09603"
   name = "github.com/nalej/grpc-app-cluster-api-go"
   packages = ["."]
   pruneopts = ""
-  revision = "4c35c9d24f1efe7f8683eecaebe5fd264a01ff06"
-  version = "v0.0.20"
+  revision = "29c292fb7f3259999ae2a4b907f1cb0a3af7df53"
+  version = "v0.0.21"
 
 [[projects]]
   digest = "1:68d84b15d67868fa490659de39b2d14f5d68674b9ad22406ee21f249d7a3ae04"
@@ -47,6 +47,14 @@
   pruneopts = ""
   revision = "ffa17dee9fb51f8fdb71d345c12c05be6ce097cb"
   version = "v0.0.83"
+
+[[projects]]
+  digest = "1:1ed874bfd5103d0fe53e49e1f4464d377cf5cac051ae7e43b3c3e69888f499ef"
+  name = "github.com/nalej/grpc-cluster-watcher-go"
+  packages = ["."]
+  pruneopts = ""
+  revision = "cc605d606b1ff550d0abb037317da15292d655af"
+  version = "v0.0.3"
 
 [[projects]]
   digest = "1:44f7426538411ea9f774f96e3b102decc9f549b188e55e29ecc15be69542a96b"
@@ -256,6 +264,7 @@
   input-imports = [
     "github.com/nalej/derrors",
     "github.com/nalej/grpc-app-cluster-api-go",
+    "github.com/nalej/grpc-cluster-watcher-go",
     "github.com/nalej/grpc-common-go",
     "github.com/nalej/grpc-conductor-go",
     "github.com/nalej/grpc-deployment-manager-go",

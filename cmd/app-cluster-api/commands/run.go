@@ -30,6 +30,7 @@ func init() {
     runCmd.Flags().StringVar(&config.MusicianAddress, "musicianAddress", "musician.nalej:5100", "musician service address")
     runCmd.Flags().StringVar(&config.UnifiedLoggingAddress, "unifiedLoggingAddress", "unified-logging-slave.nalej:8322", "unified logging slave address")
     runCmd.Flags().StringVar(&config.MetricsCollectorAddress, "metricsCollectorAddress", "metrics-collector.nalej:8422", "metrics collector address")
+    runCmd.Flags().StringVar(&config.ClusterWatcherAddress, "clusterWatcherAddress", "cluster-watcher.nalej:7777", "cluster watcher service address")
 
     rootCmd.AddCommand(runCmd)
 }
