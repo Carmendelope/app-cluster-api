@@ -1,10 +1,10 @@
 [[constraint]]
     name="github.com/rs/zerolog"
-    version="v1.8.0"
+    version="=v1.8.0"
 
 [[constraint]]
     name="github.com/spf13/cobra"
-    version="v0.0.3"
+    version="=v0.0.3"
 
 [[override]]
   source = "https://github.com/fsnotify/fsnotify/archive/v1.4.7.tar.gz"
@@ -20,32 +20,32 @@
 
 [[constraint]]
     name="github.com/nalej/derrors"
-    version="v2.0.0"
+    version="=v2.0.0"
 
 [[constraint]]
     name="github.com/nalej/grpc-deployment-manager-go"
-    version="v0.0.58"
+    version="=v0.0.58"
 
 [[constraint]]
     name="github.com/nalej/grpc-conductor-go"
-    version="v0.0.91"
+    version="=v0.0.91"
 
 [[constraint]]
     name="github.com/nalej/grpc-unified-logging-go"
-    version="v0.0.2"
+    version="=v0.0.2"
 
 [[constraint]]
     name="github.com/nalej/grpc-common-go"
-    version="v0.0.30"
+    version="=v0.0.30"
 
 [[constraint]]
     name="github.com/nalej/grpc-app-cluster-api-go"
-    version="v0.0.21"
+    version="=v0.0.21"
 
 [[constraint]]
     name="github.com/nalej/grpc-cluster-watcher-go"
-    version="v0.0.3"
+    version="=v0.0.4"
 
 [[constraint]]
     name="github.com/nalej/grpc-monitoring-go"
-    version="v0.0.4"
+    version="=v0.0.4"
