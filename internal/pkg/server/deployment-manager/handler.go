@@ -9,6 +9,7 @@ import (
     "github.com/rs/zerolog/log"
     "github.com/nalej/grpc-deployment-manager-go"
     "github.com/nalej/grpc-common-go"
+    "google.golang.org/grpc"
 )
 
 // Handler structure for the conductor requests.
@@ -40,4 +41,10 @@ func (h* Handler) UndeployFragment (context context.Context, request *grpc_deplo
 func (h* Handler) SetServiceRoute(context context.Context, request *grpc_deployment_manager_go.ServiceRoute) (*grpc_common_go.Success, error) {
     log.Debug().Interface("request", request).Msg("set service route")
     return h.Manager.SetServiceRoute(request)
+}
+
+// JoinZTNetwork message to Request a zt-agent to join into a new Network
+func (h* Handler) JoinZTNetwork(_ context.Context, request *grpc_deployment_manager_go.JoinZTNetworkRequest) (*grpc_common_go.Success, error){
+    log.Debug().Interface("request", request).Msg("join ZT-Network")
+    return h.Manager.JoinZTNetwork(request)
 }
