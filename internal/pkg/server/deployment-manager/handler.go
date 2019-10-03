@@ -41,3 +41,9 @@ func (h* Handler) SetServiceRoute(context context.Context, request *grpc_deploym
     log.Debug().Interface("request", request).Msg("set service route")
     return h.Manager.SetServiceRoute(request)
 }
+
+// JoinZTNetwork message to Request a zt-agent to join into a new Network
+func (h* Handler) JoinZTNetwork(_ context.Context, request *grpc_deployment_manager_go.JoinZTNetworkRequest) (*grpc_common_go.Success, error){
+    log.Debug().Interface("request", request).Msg("join ZT-Network")
+    return h.Manager.JoinZTNetwork(request)
+}
