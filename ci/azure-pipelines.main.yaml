@@ -61,12 +61,13 @@ jobs:
     displayName: 'Evaluate gofmt'
     workingDirectory: $(modulePath)
 
-  - publish: $(System.DefaultWorkingDirectory)
+  - publish: $(modulePath)/gofmt_output
     artifact: gofmt_ouput
     displayName: 'Publish gofmt artifact'
 
   - script: rm gofmt_output
     displayName: 'Remove gofmt file'
+    workingDirectory: $(modulePath)
 
   - template: go/dep.yaml@ci_templates
     parameters:
