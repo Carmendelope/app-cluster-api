@@ -55,6 +55,19 @@ jobs:
       echo '##vso[task.prependpath]$(GOROOT)/bin'
     displayName: 'Set up the Go workspace'
 
+  - script: |
+      gofmt -d ./ > gofmt_output
+      cat gofmt_output
+    displayName: 'Evaluate gofmt'
+    workingDirectory: $(modulePath)
+
+  - publish: $(System.DefaultWorkingDirectory)
+    artifact: gofmt_ouput
+    displayName: 'Publish gofmt artifact'
+
+  - script: rm gofmt_output
+    displayName: 'Remove gofmt file'
+
   - template: go/dep.yaml@ci_templates
     parameters:
       sshHostName: $(hostName)
