@@ -9,7 +9,6 @@ import (
     "github.com/rs/zerolog/log"
     "github.com/nalej/grpc-deployment-manager-go"
     "github.com/nalej/grpc-common-go"
-    "google.golang.org/grpc"
 )
 
 // Handler structure for the conductor requests.
