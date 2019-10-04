@@ -35,6 +35,8 @@ jobs:
   steps:
   - template: misc/variables.yaml@ci_templates
 
+  - template: misc/nalej-component.yaml@ci_templates
+
   - template: slack/build/start.yaml@ci_templates
     parameters:
       author: $(authorName)
@@ -82,7 +84,7 @@ jobs:
   - template: go/build.yaml@ci_templates
     parameters:
       modulePath: $(modulePath)
-      appList: $(cat .nalej-component.json | jq -r '.application_list| join(" ")')
+      appList: $(appList)
   
   - template: docker/login.yaml@ci_templates
     parameters:
