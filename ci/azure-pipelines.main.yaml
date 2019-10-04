@@ -14,8 +14,6 @@ variables:
     value: '$(GOPATH)/src/github.com/$(Build.Repository.Name)'
   - name: imageList
     value: 'app-cluster-api'
-  - name: authorName
-    value: ""
 
 resources:
   repositories:
