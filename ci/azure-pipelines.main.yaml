@@ -56,7 +56,7 @@ jobs:
     displayName: 'Set up the Go workspace'
 
   - script: |
-      gofmt -d ./ > gofmt_output
+      gofmt -d ./ > gofmt_output && false
       if [ $? -ne 0 ]; then
         gofmt_output=$(cat gofmt_output)
         echo "##vso[task.logissue type=error]gofmt command has failed.%0D%0ACommand output:%0D%0A${gofmt_output//$'\n'/'%0D%0A'}"
