@@ -12,8 +12,6 @@ variables:
     value: '$(system.defaultWorkingDirectory)/gopath'
   - name: modulePath
     value: '$(GOPATH)/src/github.com/$(Build.Repository.Name)'
-  - name: appList
-    value: ""
   - name: imageList
     value: 'app-cluster-api'
   - name: authorName
