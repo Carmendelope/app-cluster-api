@@ -42,3 +42,8 @@ func (m *Manager) SetServiceRoute(request *grpc_deployment_manager_go.ServiceRou
     return m.DMNetworkClient.SetServiceRoute(context.Background(), request)
 
 }
+// JoinZTNetwork
+func (m *Manager) JoinZTNetwork(request *grpc_deployment_manager_go.JoinZTNetworkRequest) (*grpc_common_go.Success, error){
+    log.Debug().Interface("request", request).Msg("forward join ZT-Network")
+    return m.DMNetworkClient.JoinZTNetwork(context.Background(), request)
+}
