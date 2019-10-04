@@ -13,7 +13,7 @@ variables:
   - name: modulePath
     value: '$(GOPATH)/src/github.com/$(Build.Repository.Name)'
   - name: appList
-    value: 'app-cluster-api'
+    value: ""
   - name: imageList
     value: 'app-cluster-api'
   - name: authorName
@@ -82,7 +82,7 @@ jobs:
   - template: go/build.yaml@ci_templates
     parameters:
       modulePath: $(modulePath)
-      appList: $(appList)
+      appList: $(cat .nalej-component.json | jq -r '.application_list| join(" ")')
   
   - template: docker/login.yaml@ci_templates
     parameters:
