@@ -57,9 +57,19 @@ jobs:
 
   - script: |
       gofmt -d ./ > gofmt_output
+      if [ $? -ne 0 ]; then
+        gofmt_output=$(cat gofmt_output)
+        echo "##vso[task.logissue type=error]gofmt command has failed.%0D%0ACommand output:%0D%0A${gofmt_output//$'\n'/'%0D%0A'}"
+        echo "##vso[task.complete result=Failed;]"
+        echo "gofmt command has failed. Output:" >> $(system.defaultWorkingDirectory)/pipeline_errors
+        echo $gofmt_output >> $(system.defaultWorkingDirectory)/pipeline_errors
+        echo "" >> $(system.defaultWorkingDirectory)/pipeline_errors
+        break
+      fi
       cat gofmt_output
     displayName: 'Evaluate gofmt'
     workingDirectory: $(modulePath)
+    continueOnError: true
 
   - publish: $(modulePath)/gofmt_output
     artifact: gofmt_ouput
