@@ -47,3 +47,8 @@ func (h* Handler) JoinZTNetwork(_ context.Context, request *grpc_deployment_mana
     log.Debug().Interface("request", request).Msg("join ZT-Network")
     return h.Manager.JoinZTNetwork(request)
 }
+
+func (h* Handler) LeaveZTNetwork(_ context.Context, request *grpc_deployment_manager_go.LeaveZTNetworkRequest) (*grpc_common_go.Success, error){
+    log.Debug().Interface("request", request).Msg("leave ZT-Network")
+    return h.Manager.LeaveZTNetwork(request)
+}

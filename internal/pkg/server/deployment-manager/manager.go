@@ -47,3 +47,8 @@ func (m *Manager) JoinZTNetwork(request *grpc_deployment_manager_go.JoinZTNetwor
     log.Debug().Interface("request", request).Msg("forward join ZT-Network")
     return m.DMNetworkClient.JoinZTNetwork(context.Background(), request)
 }
+
+func (m *Manager) LeaveZTNetwork(request *grpc_deployment_manager_go.LeaveZTNetworkRequest) (*grpc_common_go.Success, error){
+    log.Debug().Interface("request", request).Msg("forward leave ZT-Network")
+    return m.DMNetworkClient.LeaveZTNetwork(context.Background(), request)
+}
