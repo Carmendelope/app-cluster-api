@@ -57,12 +57,12 @@
   version = "v0.0.11"
 
 [[projects]]
-  digest = "1:951ccd675cdbd35b4a9b39c539e5a9041507cd5dcea5fc63342540ea8a72c2c6"
+  digest = "1:c96717a83498637ef49ea903eaa07c20a1dc9511043b06da8ac8099dffa58b68"
   name = "github.com/nalej/grpc-cluster-watcher-go"
   packages = ["."]
   pruneopts = ""
-  revision = "1540f520a26a7539db497978cfcf1a4283cb881e"
-  version = "v0.0.6"
+  revision = "dab36160f6c422effd58b50582485154d5eae6b6"
+  version = "v0.0.7"
 
 [[projects]]
   digest = "1:44f7426538411ea9f774f96e3b102decc9f549b188e55e29ecc15be69542a96b"
