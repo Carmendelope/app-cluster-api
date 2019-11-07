@@ -53,7 +53,7 @@ dep ensure -update -v
 ​
 ## Known Issues
 ​
-* The authentication of the management cluster if fully delegated on the ingress, future versions will include tighter
+* The authentication of the management cluster if fully delegated to the ingress, future versions will include tighter
 control on which management clusters can send commands to the application cluster.
 ​
 ​
