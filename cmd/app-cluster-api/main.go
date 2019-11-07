@@ -5,8 +5,8 @@
 package main
 
 import (
-    "github.com/nalej/app-cluster-api/cmd/app-cluster-api/commands"
-    "github.com/nalej/app-cluster-api/version"
+	"github.com/nalej/app-cluster-api/cmd/app-cluster-api/commands"
+	"github.com/nalej/app-cluster-api/version"
 )
 
 var MainVersion string
@@ -14,7 +14,7 @@ var MainVersion string
 var MainCommit string
 
 func main() {
-    version.AppVersion = MainVersion
-    version.Commit = MainCommit
-    commands.Execute()
+	version.AppVersion = MainVersion
+	version.Commit = MainCommit
+	commands.Execute()
 }
