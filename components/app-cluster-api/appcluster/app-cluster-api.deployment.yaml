@@ -29,7 +29,6 @@ spec:
         imagePullPolicy: Always
         args:
         - "run"
-        - "--debug"
         securityContext:
           runAsUser: 2000
       imagePullSecrets:

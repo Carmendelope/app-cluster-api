@@ -5,63 +5,61 @@
 package server
 
 import (
-    "github.com/nalej/derrors"
-    "github.com/rs/zerolog/log"
-    "github.com/nalej/app-cluster-api/version"
+	"github.com/nalej/app-cluster-api/version"
+	"github.com/nalej/derrors"
+	"github.com/rs/zerolog/log"
 )
 
 type Config struct {
-    // Port where the gRPC API service will listen  to incoming requests
-    Port int
-    // DeploymentManager address
-    DeploymentManagerAddress string
-    // Musician address
-    MusicianAddress string
-    // Unified Logging Slave address
-    UnifiedLoggingAddress string
-    // Metrics Collector address
-    MetricsCollectorAddress string
-    // Cluster watcher address
-    ClusterWatcherAddress string
+	// Port where the gRPC API service will listen  to incoming requests
+	Port int
+	// DeploymentManager address
+	DeploymentManagerAddress string
+	// Musician address
+	MusicianAddress string
+	// Unified Logging Slave address
+	UnifiedLoggingAddress string
+	// Metrics Collector address
+	MetricsCollectorAddress string
+	// Cluster watcher address
+	ClusterWatcherAddress string
 }
-
 
 func (conf *Config) Validate() derrors.Error {
 
-    if conf.Port <= 0 {
-        return derrors.NewInvalidArgumentError("ports must be valid")
-    }
+	if conf.Port <= 0 {
+		return derrors.NewInvalidArgumentError("ports must be valid")
+	}
 
-    if conf.MusicianAddress == "" {
-        return derrors.NewInvalidArgumentError("musicianAddress invalid")
-    }
+	if conf.MusicianAddress == "" {
+		return derrors.NewInvalidArgumentError("musicianAddress invalid")
+	}
 
-    if conf.DeploymentManagerAddress == "" {
-        return derrors.NewInvalidArgumentError("deploymentManagerAddress invalid")
-    }
+	if conf.DeploymentManagerAddress == "" {
+		return derrors.NewInvalidArgumentError("deploymentManagerAddress invalid")
+	}
 
-    if conf.UnifiedLoggingAddress == "" {
-        return derrors.NewInvalidArgumentError("unifiedLoggingAddress invalid")
-    }
+	if conf.UnifiedLoggingAddress == "" {
+		return derrors.NewInvalidArgumentError("unifiedLoggingAddress invalid")
+	}
 
-    if conf.MetricsCollectorAddress == "" {
-        return derrors.NewInvalidArgumentError("metricsCollectorAddress invalid")
-    }
+	if conf.MetricsCollectorAddress == "" {
+		return derrors.NewInvalidArgumentError("metricsCollectorAddress invalid")
+	}
 
-    if conf.ClusterWatcherAddress == "" {
-        return derrors.NewInvalidArgumentError("clusterWatcherAddress invalid")
-    }
+	if conf.ClusterWatcherAddress == "" {
+		return derrors.NewInvalidArgumentError("clusterWatcherAddress invalid")
+	}
 
-    return nil
+	return nil
 }
 
 func (conf *Config) Print() {
-    log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
-    log.Info().Int("port", conf.Port).Msg("gRPC port")
-    log.Info().Str("URL", conf.DeploymentManagerAddress).Msg("Deployment Manager Service")
-    log.Info().Str("URL", conf.MusicianAddress).Msg("Musician Service")
-    log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
-    log.Info().Str("URL", conf.MetricsCollectorAddress).Msg("Metrics Collector Service")
-    log.Info().Str("URL", conf.ClusterWatcherAddress).Msg("Cluster watcher service")
+	log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
+	log.Info().Int("port", conf.Port).Msg("gRPC port")
+	log.Info().Str("URL", conf.DeploymentManagerAddress).Msg("Deployment Manager Service")
+	log.Info().Str("URL", conf.MusicianAddress).Msg("Musician Service")
+	log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
+	log.Info().Str("URL", conf.MetricsCollectorAddress).Msg("Metrics Collector Service")
+	log.Info().Str("URL", conf.ClusterWatcherAddress).Msg("Cluster watcher service")
 }
-
