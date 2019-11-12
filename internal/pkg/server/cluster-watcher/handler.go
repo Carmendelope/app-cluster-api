@@ -1,28 +1,41 @@
 /*
- * Copyright (C) 2019 Nalej - All Rights Reserved
+ * Copyright 2019 Nalej
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package cluster_watcher
 
 import (
-    "context"
-    "github.com/nalej/grpc-cluster-watcher-go"
-    "github.com/nalej/grpc-common-go"
-    "github.com/rs/zerolog/log"
+	"context"
+	"github.com/nalej/grpc-cluster-watcher-go"
+	"github.com/nalej/grpc-common-go"
+	"github.com/rs/zerolog/log"
 )
 
 // Handler structure for the conductor requests.
 type Handler struct {
-    Manager Manager
+	Manager Manager
 }
 
 // NewHandler creates a new Handler with a linked manager.
 func NewHandler(manager Manager) *Handler {
-    return &Handler{manager}
+	return &Handler{manager}
 }
 
+// Request to score an application
 func (h *Handler) UpdateClusters(context context.Context, request *grpc_cluster_watcher_go.ListClustersWatchInfo) (*grpc_common_go.Success, error) {
-    log.Debug().Interface("request", request).Msg("update clusters")
-    return h.Manager.UpdateClusters(request)
+	log.Debug().Interface("request", request).Msg("update clusters")
+	return h.Manager.UpdateClusters(request)
 }
-
