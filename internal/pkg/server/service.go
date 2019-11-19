@@ -133,8 +133,7 @@ func (s *Service) Run() error {
 
 	cwManager := cluster_watcher.NewManager(clients.ClusterWatcherClient)
 	cwHandler := cluster_watcher.NewHandler(cwManager)
-	// Create handlers
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(WithClientCertValidator(&s.Configuration))
 
 	grpc_app_cluster_api_go.RegisterDeploymentManagerServer(grpcServer, dmHandler)
 	grpc_app_cluster_api_go.RegisterMusicianServer(grpcServer, musicianHandler)

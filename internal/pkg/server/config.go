@@ -23,6 +23,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// Config structure with the configuration parameters of the application.
 type Config struct {
 	// Port where the gRPC API service will listen  to incoming requests
 	Port int
@@ -36,37 +37,37 @@ type Config struct {
 	MetricsCollectorAddress string
 	// Cluster watcher address
 	ClusterWatcherAddress string
+	// ManagementPublicHost with the public host name of the management cluster.
+	ManagementPublicHost string
 }
 
+// Validate checks the configuration options returning an error if any mandatory value is missing.
 func (conf *Config) Validate() derrors.Error {
-
 	if conf.Port <= 0 {
 		return derrors.NewInvalidArgumentError("ports must be valid")
 	}
-
 	if conf.MusicianAddress == "" {
 		return derrors.NewInvalidArgumentError("musicianAddress invalid")
 	}
-
 	if conf.DeploymentManagerAddress == "" {
 		return derrors.NewInvalidArgumentError("deploymentManagerAddress invalid")
 	}
-
 	if conf.UnifiedLoggingAddress == "" {
 		return derrors.NewInvalidArgumentError("unifiedLoggingAddress invalid")
 	}
-
 	if conf.MetricsCollectorAddress == "" {
 		return derrors.NewInvalidArgumentError("metricsCollectorAddress invalid")
 	}
-
 	if conf.ClusterWatcherAddress == "" {
 		return derrors.NewInvalidArgumentError("clusterWatcherAddress invalid")
 	}
-
+	if conf.ManagementPublicHost == "" {
+		return derrors.NewInvalidArgumentError("managementPublicHost must be set")
+	}
 	return nil
 }
 
+// Print the configuration values to the log.
 func (conf *Config) Print() {
 	log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
 	log.Info().Int("port", conf.Port).Msg("gRPC port")
@@ -75,4 +76,5 @@ func (conf *Config) Print() {
 	log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
 	log.Info().Str("URL", conf.MetricsCollectorAddress).Msg("Metrics Collector Service")
 	log.Info().Str("URL", conf.ClusterWatcherAddress).Msg("Cluster watcher service")
+	log.Info().Str("URL", conf.ManagementPublicHost).Msg("Management cluster")
 }

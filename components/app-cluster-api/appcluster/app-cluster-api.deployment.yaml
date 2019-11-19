@@ -29,5 +29,12 @@ spec:
         imagePullPolicy: Always
         args:
         - "run"
+        - "--managementPublicHost=$(MANAGEMENT_PUBLIC_HOST)"
+        env:
+          - name: MANAGEMENT_PUBLIC_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: cluster-config
+                key: management_public_host
         securityContext:
           runAsUser: 2000
