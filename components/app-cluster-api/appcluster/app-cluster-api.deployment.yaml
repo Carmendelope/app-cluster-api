@@ -29,7 +29,6 @@ spec:
         imagePullPolicy: Always
         args:
         - "run"
-        - "--debug"
         - "--managementPublicHost=$(MANAGEMENT_PUBLIC_HOST)"
         env:
           - name: MANAGEMENT_PUBLIC_HOST
