@@ -29,5 +29,29 @@ spec:
         imagePullPolicy: Always
         args:
         - "run"
+        - "--debug"
+        - "--caCertPath=/nalej/ca-certificate/ca.crt"
+        - "--clientCertPath=/nalej/tls-client-certificate/"
+        - "--managementPublicHost=$(MANAGEMENT_PUBLIC_HOST)"
+        env:
+          - name: MANAGEMENT_PUBLIC_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: cluster-config
+                key: management_public_host
         securityContext:
           runAsUser: 2000
+        volumeMounts:
+          - name: ca-certificate-volume
+            readOnly: true
+            mountPath: /nalej/ca-certificate
+          - name: tls-client-certificate-volume
+            readOnly: true
+            mountPath: /nalej/tls-client-certificate
+      volumes:
+        - name: ca-certificate-volume
+          secret:
+            secretName: ca-certificate
+        - name: tls-client-certificate-volume
+          secret:
+            secretName: tls-client-certificate
