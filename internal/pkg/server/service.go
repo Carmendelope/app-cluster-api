@@ -18,8 +18,6 @@
 package server
 
 import (
-	"crypto/tls"
-	"crypto/x509"
 	"fmt"
 	"github.com/nalej/app-cluster-api/internal/pkg/server/cluster-watcher"
 	"github.com/nalej/app-cluster-api/internal/pkg/server/deployment-manager"
@@ -35,9 +33,7 @@ import (
 	"github.com/nalej/grpc-unified-logging-go"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
-	"io/ioutil"
 	"net"
 )
 
@@ -137,12 +133,7 @@ func (s *Service) Run() error {
 
 	cwManager := cluster_watcher.NewManager(clients.ClusterWatcherClient)
 	cwHandler := cluster_watcher.NewHandler(cwManager)
-	// Create handlers
-	creds, cErr := s.getSecureOptions()
-	if cErr != nil{
-		log.Fatal().Str("trace", cErr.DebugReport()).Msg("cannot build TLS options")
-	}
-	grpcServer := grpc.NewServer(grpc.Creds(creds), WithClientCertValidator(&s.Configuration))
+	grpcServer := grpc.NewServer(WithClientCertValidator(&s.Configuration))
 
 	grpc_app_cluster_api_go.RegisterDeploymentManagerServer(grpcServer, dmHandler)
 	grpc_app_cluster_api_go.RegisterMusicianServer(grpcServer, musicianHandler)
@@ -154,46 +145,6 @@ func (s *Service) Run() error {
 	log.Info().Int("port", s.Configuration.Port).Msg("Launching gRPC server")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal().Errs("failed to serve: %v", []error{err})
-	}
-	return nil
-}
-
-func (s * Service) getSecureOptions() (credentials.TransportCredentials, derrors.Error) {
-	rootCAs := x509.NewCertPool()
-	tlsConfig := &tls.Config{}
-
-	// Load CA to validate client certificate
-	log.Debug().Str("caCertPath", s.Configuration.CACertPath).Msg("loading server certificate")
-	serverCert, err := ioutil.ReadFile(s.Configuration.CACertPath)
-	if err != nil {
-		return nil, derrors.NewInternalError("Error loading server certificate")
-	}
-	added := rootCAs.AppendCertsFromPEM(serverCert)
-	if !added {
-		return nil, derrors.NewInternalError("cannot add server certificate to the pool")
-	}
-	tlsConfig.RootCAs = rootCAs
-	// Client certificate for app-cluster-api
-	log.Debug().Str("clientCertPath", s.Configuration.ClientCertPath).Msg("loading client certificate")
-	clientCert, err := tls.LoadX509KeyPair(fmt.Sprintf("%s/tls.crt", s.Configuration.ClientCertPath), fmt.Sprintf("%s/tls.key", s.Configuration.ClientCertPath))
-	if err != nil {
-		log.Error().Str("error", err.Error()).Msg("Error loading client certificate")
-		return nil, derrors.NewInternalError("Error loading client certificate")
-	}
-
-	tlsConfig.Certificates = []tls.Certificate{clientCert}
-	tlsConfig.BuildNameToCertificate()
-	tlsConfig.VerifyPeerCertificate = s.verifyManagementCluster
-	creds := credentials.NewTLS(tlsConfig)
-	log.Debug().Interface("creds", creds.Info()).Msg("Secure credentials")
-	return creds, nil
-}
-
-func (s * Service) verifyManagementCluster(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
-	log.Info().Msg("verifyManagementCluster")
-	log.Info().Int("numRawCerts", len(rawCerts)).Int("numVerifiedChains", len(verifiedChains)).Msg("parameters")
-	for _, vc := range verifiedChains{
-		log.Info().Interface("vc", vc).Msg("chain element")
 	}
 	return nil
 }

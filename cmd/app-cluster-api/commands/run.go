@@ -44,8 +44,6 @@ func init() {
 	runCmd.Flags().StringVar(&config.UnifiedLoggingAddress, "unifiedLoggingAddress", "unified-logging-slave.nalej:8322", "unified logging slave address")
 	runCmd.Flags().StringVar(&config.MetricsCollectorAddress, "metricsCollectorAddress", "metrics-collector.nalej:8422", "metrics collector address")
 	runCmd.Flags().StringVar(&config.ClusterWatcherAddress, "clusterWatcherAddress", "cluster-watcher.nalej:7777", "cluster watcher service address")
-	runCmd.Flags().StringVar(&config.CACertPath, "caCertPath", "", "Alternative certificate file to use for validation")
-	runCmd.Flags().StringVar(&config.ClientCertPath, "clientCertPath", "", "Alternative certificate file to use for validation")
 	runCmd.Flags().StringVar(&config.ManagementPublicHost, "managementPublicHost", "", "Hostname of the management cluster")
 
 	rootCmd.AddCommand(runCmd)

@@ -37,10 +37,6 @@ type Config struct {
 	MetricsCollectorAddress string
 	// Cluster watcher address
 	ClusterWatcherAddress string
-	// Path for the certificate of the CA
-	CACertPath string
-	// client certificate path to use for validation
-	ClientCertPath string
 	// ManagementPublicHost with the public host name of the management cluster.
 	ManagementPublicHost string
 }
@@ -65,12 +61,6 @@ func (conf *Config) Validate() derrors.Error {
 	if conf.ClusterWatcherAddress == "" {
 		return derrors.NewInvalidArgumentError("clusterWatcherAddress invalid")
 	}
-	if conf.CACertPath == "" {
-		return derrors.NewInvalidArgumentError("caCertPath must be set")
-	}
-	if conf.ClientCertPath == "" {
-		return derrors.NewInvalidArgumentError("clientCertPath must be set")
-	}
 	if conf.ManagementPublicHost == "" {
 		return derrors.NewInvalidArgumentError("managementPublicHost must be set")
 	}
@@ -80,7 +70,7 @@ func (conf *Config) Validate() derrors.Error {
 // Print the configuration values to the log.
 func (conf *Config) Print() {
 	log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
-	log.Info().Int("port", conf.Port).Str("clientCertPath", conf.ClientCertPath).Str("caCertPath", conf.CACertPath).Msg("gRPC port")
+	log.Info().Int("port", conf.Port).Msg("gRPC port")
 	log.Info().Str("URL", conf.DeploymentManagerAddress).Msg("Deployment Manager Service")
 	log.Info().Str("URL", conf.MusicianAddress).Msg("Musician Service")
 	log.Info().Str("URL", conf.UnifiedLoggingAddress).Msg("Unified Logging Slave Service")
