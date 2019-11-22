@@ -33,12 +33,12 @@
   version = "v2.1.0"
 
 [[projects]]
-  digest = "1:1435c9e29fad749fa3dc04cc319d3cd0360a2d1ee8f150745de09b4a1ed3c165"
+  digest = "1:158891f3bc7259d810d301fdbc14cab9e9a1ae71d04a026e40a89d85969ae613"
   name = "github.com/nalej/grpc-app-cluster-api-go"
   packages = ["."]
   pruneopts = ""
-  revision = "9563ef21a303eea3a997e9b77628a98c8257d5f9"
-  version = "v0.0.23"
+  revision = "5c933673f85f49ae5c63e891d38554cefee5e574"
+  version = "v0.0.25"
 
 [[projects]]
   digest = "1:db80629ec1cb6f46cf6c92f350131811fc773fc67b5f9d5b57a84c1a01183613"
@@ -129,12 +129,12 @@
   version = "v0.0.30"
 
 [[projects]]
-  digest = "1:68607a8341f50bf3c833f344ea3e0deb01fc1e6f98351839050d1238ab079c51"
+  digest = "1:8c9cc1c5f49b9687beb6e2297f5f447b10a099482d7e0c8cebe0ae25bc94c504"
   name = "github.com/nalej/grpc-unified-logging-go"
   packages = ["."]
   pruneopts = ""
-  revision = "2df3d89032969e23e43eed0a052c49bf74a4fb3d"
-  version = "v0.0.6"
+  revision = "d0a49f5f4240790cf7dfa5060a414accc98e01f6"
+  version = "v0.0.7"
 
 [[projects]]
   digest = "1:0261633894934ecc23f9b2551c21676dc5e89554d76aafd8ccb84aff21196799"

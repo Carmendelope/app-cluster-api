@@ -34,7 +34,7 @@ func NewHandler(manager Manager) *Handler {
 }
 
 // Search for log entries matching a query.
-func (h *Handler) Search(ctx context.Context, request *grpc_unified_logging_go.SearchRequest) (*grpc_unified_logging_go.LogResponse, error) {
+func (h *Handler) Search(ctx context.Context, request *grpc_unified_logging_go.SearchRequest) (*grpc_unified_logging_go.LogResponseList, error) {
 	log.Debug().Interface("request", request).Msg("search")
 	return h.Manager.Search(request)
 }

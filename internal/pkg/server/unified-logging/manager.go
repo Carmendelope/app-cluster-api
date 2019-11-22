@@ -34,7 +34,7 @@ func NewManager(unifiedLoggingClient grpc_unified_logging_go.SlaveClient) Manage
 	return Manager{UnifiedLoggingClient: unifiedLoggingClient}
 }
 
-func (m *Manager) Search(request *grpc_unified_logging_go.SearchRequest) (*grpc_unified_logging_go.LogResponse, error) {
+func (m *Manager) Search(request *grpc_unified_logging_go.SearchRequest) (*grpc_unified_logging_go.LogResponseList, error) {
 	log.Debug().Interface("request", request).Msg("forward search request")
 	return m.UnifiedLoggingClient.Search(context.Background(), request)
 }
