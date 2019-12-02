@@ -19,7 +19,10 @@ package metrics_collector
 
 import (
 	"context"
+	"github.com/nalej/derrors"
+	"github.com/nalej/grpc-common-go"
 	grpc "github.com/nalej/grpc-monitoring-go"
+	"github.com/nalej/grpc-utils/pkg/conversions"
 	"github.com/rs/zerolog/log"
 )
 
@@ -48,4 +51,8 @@ func (h *Handler) GetClusterStats(ctx context.Context, request *grpc.ClusterStat
 func (h *Handler) Query(ctx context.Context, request *grpc.QueryRequest) (*grpc.QueryResponse, error) {
 	log.Debug().Interface("request", request).Msg("Query")
 	return h.Manager.Query(request)
+}
+
+func (h *Handler) GetContainerStats(ctx context.Context, in *grpc_common_go.Empty) (*grpc.ContainerStatsResponse, error) {
+	return nil, conversions.ToGRPCError(derrors.NewUnimplementedError("not implemented yet"))
 }
