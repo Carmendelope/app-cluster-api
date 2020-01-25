@@ -1,9 +1,8 @@
 # app-cluster-api
 ​
-The application cluster api is the component responsible of receiving request from the management cluster
-components, and redirecting those requests to the appropriate internal components.
+The application cluster api receives requests from the management cluster components and redirects those requests to the appropriate internal components.
 
-The internal structure follows a gRPC service structure where the name of the Service matches the receiver
+The internal structure follows a gRPC service structure, where the name of the service matches the receiver
 name to facilitate implementation and tracking.
 ​
 ## Getting Started
@@ -13,10 +12,7 @@ This component must be deployed and running on an application cluster for it to 
 ### Prerequisites
 ​
 * Downstream components on the application cluster must be running.
-* The provisioning process executed by the `provisioner` on the managemenet cluster installs [cert-manager](https://github.com/jetstack/cert-manager),
-and it creates the client certificate to be installed on the associated ingress.
-* The installation process must create an ingress using the aforementioned certificate to validate that the management cluster certificate is issued
-by the configured CA.
+* The provisioning process executed by the `provisioner` on the managemenet cluster installs [`cert-manager`](https://github.com/jetstack/cert-manager), and it creates a client certificate. So, the installation process must create an ingress using the aforementioned certificate (to validate that the management cluster certificate is issued by the configured CA).
 ​
 ### Build and compile
 ​
@@ -26,8 +22,7 @@ In order to build and compile this repository use the provided Makefile:
 make all
 ```
 ​
-This operation generates the binaries for this repo, download dependencies,
-run existing tests and generate ready-to-deploy Kubernetes files.
+This operation generates the binaries for this repo, downloads the required dependencies, runs existing tests and generates ready-to-deploy Kubernetes files.
 ​
 ### Run tests
 ​
@@ -53,7 +48,7 @@ dep ensure -update -v
 ​
 ## Known Issues
 ​
-* The authentication of the management cluster if fully delegated to the ingress, future versions will include tighter
+* The authentication of the management cluster is fully delegated to the ingress. Future versions will include tighter
 control on which management clusters can send commands to the application cluster.
 ​
 ​
@@ -63,7 +58,7 @@ Please read [contributing.md](contributing.md) for details on our code of conduc
 ​
 ## Versioning
 ​
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/app-cluster-api/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the available versions, see the [tags on this repository](https://github.com/app-cluster-api/tags). 
 ​
 ## Authors
 ​
