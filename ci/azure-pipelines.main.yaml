@@ -28,7 +28,7 @@ stages:
         buildUrl: $(buildUrl)$(Build.BuildId)
         slackWebhook: $(slackBuilds)
     - template: misc/nalej-component.yaml@ci_templates
-    # - template: steps/go-main.yaml@ci_templates
+    - template: steps/go-main.yaml@ci_templates
     # - template: steps/cli-publish-main.yaml@ci_templates
     # - template: steps/docker-main.yaml@ci_templates
     # - template: steps/assets-main.yaml@ci_templates
