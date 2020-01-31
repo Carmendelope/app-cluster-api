@@ -2,8 +2,6 @@ variables:
   - template: variables/global.yaml@ci_templates
   - template: variables/go.yaml@ci_templates
   - template: variables/k8s.yaml@ci_templates
-  # - template: variables/git.yaml@ci_templates
-  #
 
 resources:
   repositories:
@@ -11,7 +9,7 @@ resources:
       type: github
       name: nalej/ci-templates
       endpoint: nalej
-      # ref: refs/tags/v1.2.0
+      ref: refs/tags/v1.2.1
 
 stages:
 - stage: 'MainPipeline'
@@ -30,9 +28,8 @@ stages:
         buildUrl: $(buildUrl)$(Build.BuildId)
         slackWebhook: $(slackBuilds)
     - template: misc/nalej-component.yaml@ci_templates
-    - template: go/workspace.yaml@ci_templates
-    # - template: steps/go-main.yaml@ci_templates
-    # - template: steps/cli-publish-main.yaml@ci_templates
-    # - template: steps/docker-main.yaml@ci_templates
-    # - template: steps/assets-main.yaml@ci_templates
+    - template: steps/go-main.yaml@ci_templates
+    - template: steps/cli-publish-main.yaml@ci_templates
+    - template: steps/docker-main.yaml@ci_templates
+    - template: steps/assets-main.yaml@ci_templates
     - template: steps/slack-finish-main.yaml@ci_templates
