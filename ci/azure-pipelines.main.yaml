@@ -3,6 +3,7 @@ variables:
   - template: variables/go.yaml@ci_templates
   - template: variables/k8s.yaml@ci_templates
   # - template: variables/git.yaml@ci_templates
+  #
 
 resources:
   repositories:
