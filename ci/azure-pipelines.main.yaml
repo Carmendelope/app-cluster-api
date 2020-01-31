@@ -10,7 +10,7 @@ resources:
       type: github
       name: nalej/ci-templates
       endpoint: nalej
-      # ref: refs/tags/v1.1.2
+      ref: refs/tags/v1.2.0
 
 stages:
 - stage: 'MainPipeline'
@@ -29,7 +29,7 @@ stages:
         slackWebhook: $(slackBuilds)
     - template: misc/nalej-component.yaml@ci_templates
     - template: steps/go-main.yaml@ci_templates
-    # - template: steps/cli-publish-main.yaml@ci_templates
-    # - template: steps/docker-main.yaml@ci_templates
-    # - template: steps/assets-main.yaml@ci_templates
+    - template: steps/cli-publish-main.yaml@ci_templates
+    - template: steps/docker-main.yaml@ci_templates
+    - template: steps/assets-main.yaml@ci_templates
     - template: steps/slack-finish-main.yaml@ci_templates
